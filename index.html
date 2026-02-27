@@ -64,29 +64,6 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--f
 .btn-full{width:100%;display:flex;padding:14px}
 .btn-full:disabled{background:var(--border)!important;color:var(--dim)!important;box-shadow:none!important;cursor:not-allowed!important;transform:none!important}
 
-/* SETUP SCREEN */
-#setup{position:fixed;inset:0;z-index:9999;background:var(--bg);overflow-y:auto;padding:20px 16px 60px;display:flex;flex-direction:column;align-items:center}
-.setup-logo{font-family:var(--font-hd);font-size:40px;letter-spacing:6px;color:var(--g);text-align:center;margin-top:10px}
-.setup-sub{font-size:11px;color:var(--dim);letter-spacing:3px;text-transform:uppercase;margin:5px 0 20px;text-align:center}
-.sbox{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:20px;width:100%;max-width:460px;margin-bottom:12px}
-.sbox-t{font-family:var(--font-hd);font-size:16px;letter-spacing:.5px;margin-bottom:3px;display:flex;align-items:center;gap:8px}
-.sbox-s{font-size:12px;color:var(--dim);margin-bottom:14px;line-height:1.65}
-.flbl{font-family:var(--font-hd);font-size:10px;color:var(--dim);letter-spacing:1.5px;text-transform:uppercase;display:block;margin-bottom:5px}
-.finp{width:100%;background:var(--s2);border:1.5px solid var(--border);border-radius:9px;padding:11px 13px;font-family:var(--font-bd);font-size:13px;color:var(--text);outline:none;transition:border-color .2s;margin-bottom:10px}
-.finp:focus{border-color:var(--g)}
-.finp::placeholder{color:var(--dim)}
-.finp:last-of-type{margin-bottom:0}
-.step-row{display:flex;gap:10px;align-items:flex-start;margin-bottom:10px}
-.snum{width:24px;height:24px;border-radius:50%;background:var(--gg);color:#031210;font-family:var(--font-hd);font-size:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;font-weight:700}
-.stext{font-size:13px;color:var(--text);line-height:1.65}
-.stext code{background:var(--s2);color:var(--gold);padding:1px 6px;border-radius:4px;font-size:11px;font-family:monospace}
-.stext b{color:var(--text)}
-.stext a{color:var(--blue)}
-.gas-code{background:var(--s2);border:1px solid var(--b2);border-radius:10px;padding:13px;font-family:monospace;font-size:11px;color:#afd6f5;line-height:1.7;white-space:pre;overflow-x:auto;margin:10px 0 4px;max-height:280px;overflow-y:auto}
-.copy-btn{font-size:11px;color:var(--blue);cursor:pointer;text-decoration:underline;font-family:var(--font-bd)}
-.or-sep{text-align:center;color:var(--dim);font-size:12px;margin:8px 0}
-.green-strip{background:rgba(0,232,162,.06);border:1px solid rgba(0,232,162,.2);border-radius:10px;padding:11px 13px;font-size:12px;color:var(--g);line-height:1.7;margin-bottom:10px}
-
 /* LOADING / ERROR */
 .ld{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 20px;gap:14px}
 .spinner{width:34px;height:34px;border:3px solid var(--border);border-top-color:var(--g);border-radius:50%;animation:SP .8s linear infinite}
@@ -121,8 +98,8 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--f
 .sc-hdr-t{font-family:var(--font-hd);font-size:13px;letter-spacing:1px;color:var(--g)}
 .sc-scroll{display:flex;gap:9px;padding:10px 11px 9px;overflow-x:auto}
 .sc-pl{flex-shrink:0;text-align:center;width:58px}
-.sc-av{width:44px;height:44px;border-radius:50%;background:var(--s2);border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:20px;margin:0 auto 4px;position:relative}
-.sc-tag{position:absolute;bottom:-7px;left:50%;transform:translateX(-50%);background:var(--gold);color:#1a0a00;border-radius:9px;padding:0 5px;font-family:var(--font-hd);font-size:9px;white-space:nowrap;font-weight:700}
+.sc-av{width:44px;height:44px;border-radius:50%;background:var(--s2);border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:20px;margin:0 auto 4px;position:relative;overflow:hidden}
+.sc-tag{position:absolute;bottom:-7px;left:50%;transform:translateX(-50%);background:var(--gold);color:#1a0a00;border-radius:9px;padding:0 5px;font-family:var(--font-hd);font-size:9px;white-space:nowrap;font-weight:700;z-index:2}
 .sc-nm{font-size:10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:8px}
 .sc-role{font-size:9px;color:var(--dim)}
 
@@ -136,9 +113,9 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--f
 .pc::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;border-radius:3px 0 0 3px;background:transparent;transition:background .18s}
 .pc.sel{border-color:rgba(0,232,162,.45);background:rgba(0,232,162,.04)}
 .pc.sel::before{background:var(--g)}
-.pav{width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,#152e46,#0a1e30);display:flex;align-items:center;justify-content:center;font-size:22px;border:2px solid var(--border);flex-shrink:0;position:relative;transition:border-color .18s}
+.pav{width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,#152e46,#0a1e30);display:flex;align-items:center;justify-content:center;font-size:22px;border:2px solid var(--border);flex-shrink:0;position:relative;transition:border-color .18s;overflow:hidden}
 .pc.sel .pav{border-color:rgba(0,232,162,.55)}
-.cpin{position:absolute;bottom:-3px;right:-3px;width:17px;height:17px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;font-family:var(--font-hd);color:#000}
+.cpin{position:absolute;bottom:-3px;right:-3px;width:17px;height:17px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;font-family:var(--font-hd);color:#000;z-index:2}
 .cpinC{background:var(--gold)}.cpinVC{background:var(--red)}
 .pinfo{flex:1;min-width:0}
 .pname{font-family:var(--font-bd);font-size:14.5px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -175,7 +152,7 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--f
 .pitch-lines{position:absolute;inset:0;background:repeating-linear-gradient(180deg,rgba(255,255,255,.018) 0,rgba(255,255,255,.018) 1px,transparent 1px,transparent 44px);pointer-events:none;border-radius:16px}
 .prow{display:flex;justify-content:center;gap:7px;margin:7px 0;flex-wrap:wrap}
 .pp{display:flex;flex-direction:column;align-items:center;gap:3px;width:64px}
-.pp-av{width:46px;height:46px;border-radius:50%;border:2px solid rgba(255,255,255,.18);background:rgba(0,0,0,.3);display:flex;align-items:center;justify-content:center;font-size:21px;position:relative}
+.pp-av{width:46px;height:46px;border-radius:50%;border:2px solid rgba(255,255,255,.18);background:rgba(0,0,0,.3);display:flex;align-items:center;justify-content:center;font-size:21px;position:relative;overflow:hidden}
 .pp-nm{font-family:var(--font-bd);font-size:10px;font-weight:600;text-align:center;background:rgba(0,0,0,.55);border-radius:5px;padding:2px 4px;max-width:64px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .pp-pts{font-size:10px;color:var(--gold);font-family:var(--font-hd)}
 
@@ -186,7 +163,7 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--f
 .lb-s{font-size:10px;color:var(--dim);letter-spacing:2px;margin-top:5px;text-transform:uppercase}
 .podium{display:flex;align-items:flex-end;justify-content:center;gap:10px;padding:12px 12px 18px}
 .pod{display:flex;flex-direction:column;align-items:center;gap:4px}
-.pod-av{border-radius:50%;display:flex;align-items:center;justify-content:center;border:3px solid var(--dim);background:rgba(0,0,0,.3)}
+.pod-av{border-radius:50%;display:flex;align-items:center;justify-content:center;border:3px solid var(--dim);background:rgba(0,0,0,.3);overflow:hidden}
 .pod1 .pod-av{width:64px;height:64px;font-size:32px;border-color:var(--gold);box-shadow:0 0 20px rgba(245,197,24,.3)}
 .pod2 .pod-av,.pod3 .pod-av{width:50px;height:50px;font-size:26px}
 .pod3 .pod-av{border-color:#B87333}
@@ -200,7 +177,7 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--f
 .lb-list{display:flex;flex-direction:column;gap:6px;padding:0 12px 12px}
 .lb-row{background:var(--card);border:1px solid var(--border);border-radius:11px;display:flex;align-items:center;gap:9px;padding:10px 12px;animation:SU .3s ease both}
 .lb-rk{font-family:var(--font-hd);font-size:20px;color:var(--dim);width:26px;text-align:center}
-.lb-av{width:40px;height:40px;border-radius:50%;background:var(--s2);display:flex;align-items:center;justify-content:center;font-size:19px}
+.lb-av{width:40px;height:40px;border-radius:50%;background:var(--s2);display:flex;align-items:center;justify-content:center;font-size:19px;overflow:hidden}
 .lb-info{flex:1}
 .lb-nm{font-family:var(--font-bd);font-size:15px;font-weight:600}
 .lb-tnm{font-size:10px;color:var(--dim);margin-top:1px}
@@ -266,104 +243,17 @@ select.finp option{background:var(--card)}
 </head>
 <body>
 
-<!-- ════════════════════════════════════════════
-     SETUP SCREEN
-════════════════════════════════════════════ -->
-<div id="setup">
-  <div class="setup-logo">🏏 LCL 🏏</div>
-  <div class="setup-sub">LakeVista Cricket League Fantasy</div>
-
-  <!-- OPTION A: Apps Script -->
-  <div class="sbox">
-    <div class="sbox-t" style="color:var(--g)">⚡ Connect via Google Apps Script <span style="font-size:10px;background:rgba(0,232,162,.1);border:1px solid rgba(0,232,162,.2);color:var(--g);padding:2px 8px;border-radius:10px;font-family:var(--font-hd);letter-spacing:1px">RECOMMENDED</span></div>
-    <div class="sbox-s">One-time setup. Paste your Apps Script URL below — this bypasses all CORS issues permanently.</div>
-
-    <input type="hidden" class="finp" id="gas-url" placeholder="https://script.google.com/macros/s/AKfycbyldOyhLvOKhTvQawO449kDEdbDj4SdJStM_moL8Ejszcl1G2yfPC9obFhdhatBgw-GRA/exec">
- 
-    <button class="btn btn-g btn-full" onclick="connectGAS()" style="margin-bottom:10px">CONNECT & LOAD →</button>
-
-    <div style="border-top:1px solid var(--border);padding-top:14px;margin-top:4px">
-      <div style="font-family:var(--font-hd);font-size:12px;color:var(--dim);letter-spacing:1px;margin-bottom:10px">HOW TO SET UP APPS SCRIPT (one time, ~3 minutes):</div>
-      <div class="step-row"><div class="snum">1</div><div class="stext">Open your Google Sheet → click <b>Extensions</b> → <b>Apps Script</b></div></div>
-      <div class="step-row"><div class="snum">2</div><div class="stext">Delete all existing code, paste the code below, click <b>Save (💾)</b></div></div>
-
-      <div class="gas-code" id="gas-code-block">function doGet(e) {
-  var ss = SpreadsheetApp.getActiveSpreadsheet();
-  var out = { players: [], match: {}, ok: true };
-
-  try {
-    // Read Players sheet
-    var plSheet = ss.getSheetByName("Players");
-    if (!plSheet) plSheet = ss.getSheets()[1]; // fallback to 2nd sheet
-    var plData = plSheet.getDataRange().getValues();
-    var roleMap = {"WK":"WK","BAT":"BAT","ALL-R":"ALL-R","ALLR":"ALL-R","AR":"ALL-R","BOWL":"BOWL","BWL":"BOWL"};
-    var emojiMap = {"WK":"🧤","BAT":"🏏","ALL-R":"🌟","BOWL":"🎯"};
-    for (var i = 2; i < plData.length; i++) {
-      var r = plData[i];
-      var nm = String(r[1] || "").trim();
-      if (!nm || nm === "0") continue;
-      var role = String(r[3] || "BAT").toUpperCase().trim().replace(/[^A-Z\-]/g,"");
-      role = roleMap[role] || "BAT";
-      out.players.push({
-        name: nm,
-        team: String(r[2] || ""),
-        role: role,
-        cr:   parseFloat(r[4]) || 8,
-        emoji: String(r[5] || emojiMap[role] || "🏏"),
-        pts:  parseFloat(r[6]) || 0
-      });
-    }
-
-    // Read Matches sheet
-    try {
-      var mSheet = ss.getSheetByName("Matches");
-      if (!mSheet) mSheet = ss.getSheets()[3];
-      var mData = mSheet.getDataRange().getValues();
-      var activeNum = parseInt(mData[1][3]) || 1;
-      var mRows = mData.filter(function(r){ return !isNaN(parseInt(r[0])) && parseInt(r[0]) > 0; });
-      var mRow = mRows[activeNum - 1] || mRows[0];
-      if (mRow) {
-        out.match = { name: String(mRow[1]||"Match 1"), t1: String(mRow[2]||"Team A"),
-          t2: String(mRow[3]||"Team B"), date: String(mRow[4]||""), status: String(mRow[5]||"live").toLowerCase() };
-      }
-    } catch(me) { out.match = { name:"Match 1", t1:"Team A", t2:"Team B", status:"live", date:"" }; }
-
-  } catch(e) { out.ok = false; out.error = e.toString(); }
-
-  return ContentService.createTextOutput(JSON.stringify(out))
-    .setMimeType(ContentService.MimeType.JSON);
-}</div>
-      <span class="copy-btn" onclick="copyGASCode()">📋 Copy code to clipboard</span>
-
-      <div class="step-row" style="margin-top:12px"><div class="snum">3</div><div class="stext">Click <b>Deploy → New deployment</b> → Type: <b>Web app</b> → Execute as: <b>Me</b> → Who has access: <b>Anyone</b> → click <b>Deploy</b></div></div>
-      <div class="step-row"><div class="snum">4</div><div class="stext">Copy the <b>Web app URL</b> (starts with <code>https://script.google.com/macros/s/</code>) and paste it above</div></div>
-      <div class="step-row"><div class="snum">5</div><div class="stext">When asked to authorize, click <b>Review permissions → Advanced → Go to (unsafe) → Allow</b></div></div>
-    </div>
-  </div>
-
-  <!-- OPTION B: Demo -->
-  <div class="sbox">
-    <div class="sbox-t" style="color:var(--gold)">🎮 Demo Mode</div>
-    <div class="sbox-s">Use sample data instantly — no sheet setup needed. Great for testing the app. You can connect your sheet later via ⚙️ Admin.</div>
-    <button class="btn btn-ol btn-full" onclick="useDemoMode()">USE DEMO MODE →</button>
-  </div>
-</div>
-
-<!-- ════════════════════════════════════════════
-     MAIN APP
-════════════════════════════════════════════ -->
-<div id="app" style="display:none">
+<div id="app">
   <div class="hdr">
     <div>
       <div style="display:flex;align-items:center;gap:7px">
-        <span class="brand-logo">🏏 LCL 🏏</span>
+        <span class="brand-logo">🏏 SCF</span>
         <div style="width:7px;height:7px;border-radius:50%;background:var(--g);animation:BLK 2s infinite;box-shadow:0 0 8px var(--g)"></div>
       </div>
-      <div class="brand-sub">LakeVista Cricket League Fantasy</div>
+      <div class="brand-sub">Society Cricket Fantasy</div>
     </div>
     <div class="hdr-r">
       <button class="chip" id="sync-btn" onclick="doSync()">⟳ Sync</button>
-      <button class="chip" onclick="backToSetup()">⚙️</button>
     </div>
   </div>
   <div class="sbar"><div class="sdot wait" id="sdot"></div><span id="stxt">Loading…</span></div>
@@ -443,6 +333,26 @@ select.finp option{background:var(--card)}
 
 <script>
 // ══════════════════════════════════════════════
+// AVATAR & GOOGLE DRIVE LOGOS HELPER
+// ══════════════════════════════════════════════
+function parseDriveUrl(url) {
+  if(!url) return '';
+  var m = url.match(/[-\w]{25,}/);
+  if (m && url.includes('drive.google.com')) {
+    return 'https://drive.google.com/uc?export=view&id=' + m[0];
+  }
+  return url;
+}
+
+function renderAvatar(p) {
+  if (p.logo && p.logo.trim() !== '') {
+    return '<img src="' + parseDriveUrl(p.logo) + '" style="width:100%;height:100%;object-fit:cover;border-radius:50%">';
+  }
+  return p.emoji;
+}
+
+
+// ══════════════════════════════════════════════
 // SCORING ENGINE
 // ══════════════════════════════════════════════
 function calcPts(s){
@@ -459,7 +369,7 @@ function calcPts(s){
 // ══════════════════════════════════════════════
 // STATE
 // ══════════════════════════════════════════════
-var GAS_URL='';
+var GAS_URL='https://script.google.com/macros/s/AKfycbyldOyhLvOKhTvQawO449kDEdbDj4SdJStM_moL8Ejszcl1G2yfPC9obFhdhatBgw-GRA/exec';
 var DEMO=false;
 var LAST_SYNC=null;
 
@@ -471,26 +381,9 @@ var DB={
     {id:'st5',name:'Royal Strikers',icon:'👑'},{id:'st6',name:'Thunder Bulls',icon:'🐂'}
   ],
   players:[
-    {id:1,name:'Rahul Sharma',stid:'st1',role:'WK',emoji:'🧤',cr:9.5},
-    {id:2,name:'Vikas Nair',stid:'st1',role:'BAT',emoji:'🏏',cr:9.0},
-    {id:3,name:'Pradeep Iyer',stid:'st1',role:'BOWL',emoji:'🎯',cr:9.0},
-    {id:4,name:'Sanjay Rao',stid:'st1',role:'ALL-R',emoji:'🌟',cr:8.5},
-    {id:5,name:'Kiran Joshi',stid:'st1',role:'BAT',emoji:'🏏',cr:7.0},
-    {id:6,name:'Sunil Mathur',stid:'st1',role:'BOWL',emoji:'🎯',cr:7.0},
-    {id:7,name:'Ankit Bose',stid:'st1',role:'ALL-R',emoji:'🌟',cr:8.0},
-    {id:8,name:'Manish Tomar',stid:'st1',role:'BAT',emoji:'🏏',cr:6.5},
-    {id:9,name:'Nitin Pandey',stid:'st1',role:'BOWL',emoji:'🎯',cr:8.0},
-    {id:10,name:'Deepak Patel',stid:'st2',role:'WK',emoji:'🧤',cr:8.0},
-    {id:11,name:'Arjun Singh',stid:'st2',role:'BAT',emoji:'🏏',cr:10.0},
-    {id:12,name:'Amit Verma',stid:'st2',role:'ALL-R',emoji:'🌟',cr:9.5},
-    {id:13,name:'Rohit Kumar',stid:'st2',role:'BAT',emoji:'🏏',cr:8.5},
-    {id:14,name:'Gaurav Tiwari',stid:'st2',role:'BOWL',emoji:'🎯',cr:8.5},
-    {id:15,name:'Suresh Menon',stid:'st2',role:'BAT',emoji:'🏏',cr:7.5},
-    {id:16,name:'Mohit Gupta',stid:'st2',role:'ALL-R',emoji:'🌟',cr:8.0},
-    {id:17,name:'Ravi Saxena',stid:'st2',role:'BOWL',emoji:'🎯',cr:7.5},
-    {id:18,name:'Dev Chauhan',stid:'st2',role:'BAT',emoji:'🏏',cr:7.5},
-    {id:19,name:'Harish Dubey',stid:'st3',role:'BOWL',emoji:'🎯',cr:6.5},
-    {id:20,name:'Tarun Bhatt',stid:'st3',role:'BOWL',emoji:'🎯',cr:7.0}
+    {id:1,name:'Rahul Sharma',stid:'st1',role:'WK',emoji:'🧤',cr:9.5, logo:''},
+    {id:2,name:'Vikas Nair',stid:'st1',role:'BAT',emoji:'🏏',cr:9.0, logo:''},
+    {id:3,name:'Pradeep Iyer',stid:'st1',role:'BOWL',emoji:'🎯',cr:9.0, logo:''}
   ],
   matches:[{id:'m1',name:'Match 1',t1:'st1',t2:'st2',status:'live',date:'Today'}],
   scorecards:{},
@@ -498,11 +391,7 @@ var DB={
   lbUsers:[
     {name:'Raj Mehta',emoji:'😎',teamName:"Raj's XI",base:820},
     {name:'Priya Singh',emoji:'👑',teamName:"Queen XI",base:790},
-    {name:'Ajay Kumar',emoji:'🦁',teamName:"Lion Squad",base:775},
-    {name:'Neha Sharma',emoji:'⚡',teamName:"Storm XI",base:740},
-    {name:'Vikram Jain',emoji:'🐅',teamName:"Tiger XI",base:720},
-    {name:'Sunita Rao',emoji:'🌟',teamName:"Stars",base:695},
-    {name:'Manav Gupta',emoji:'🔥',teamName:"Blazers",base:670}
+    {name:'Ajay Kumar',emoji:'🦁',teamName:"Lion Squad",base:775}
   ]
 };
 
@@ -528,43 +417,7 @@ function getTeamIcon(name){
 }
 
 // ══════════════════════════════════════════════
-// SETUP
-// ══════════════════════════════════════════════
-function connectGAS(){
-  var url=document.getElementById('gas-url').value.trim();
-  if(!url.startsWith('https://script.google.com')){
-    showToast('⚠️ URL must start with https://script.google.com','err');return;
-  }
-  GAS_URL=url;
-  localStorage.setItem('scf_gas',GAS_URL);
-  launchApp();
-  doSync();
-}
-
-function useDemoMode(){
-  DEMO=true; GAS_URL='';
-  launchApp();
-  setSbar('Demo mode — using sample data. Enter real scores via ⚙️ Admin → 📊 Scores','warn');
-  renderHome(); renderSq();
-}
-
-function launchApp(){
-  document.getElementById('setup').style.display='none';
-  document.getElementById('app').style.display='flex';
-}
-
-function backToSetup(){
-  document.getElementById('app').style.display='none';
-  document.getElementById('setup').style.display='flex';
-}
-
-function copyGASCode(){
-  var txt=document.getElementById('gas-code-block').textContent;
-  navigator.clipboard.writeText(txt).then(function(){showToast('✅ Code copied!','ok');}).catch(function(){showToast('Select and copy the code manually','warn');});
-}
-
-// ══════════════════════════════════════════════
-// SYNC via Apps Script (no CORS issues)
+// SYNC via Apps Script
 // ══════════════════════════════════════════════
 async function doSync(){
   if(DEMO||!GAS_URL){if(!DEMO)showToast('No Apps Script URL set','warn');return;}
@@ -586,7 +439,7 @@ async function doSync(){
         var role=(p.role||'BAT').toUpperCase();
         if(!['WK','BAT','ALL-R','BOWL'].includes(role))role='BAT';
         return{id:i+1,name:p.name,stid:'ext',teamName:p.team||'',role:role,
-               emoji:p.emoji||roleEmoji[role]||'🏏',cr:parseFloat(p.cr)||8,extPts:parseFloat(p.pts)||0};
+               emoji:p.emoji||roleEmoji[role]||'🏏',cr:parseFloat(p.cr)||8,extPts:parseFloat(p.pts)||0, logo:p.logo||p.image||''};
       });
     }
 
@@ -614,14 +467,9 @@ async function doSync(){
       +'<div style="font-family:var(--font-hd);font-size:16px;color:var(--red);letter-spacing:1px;text-align:center;margin-bottom:12px">SYNC FAILED</div>'
       +'<div style="font-size:12.5px;color:var(--dim);line-height:1.75;margin-bottom:16px">'
       +'<b style="color:var(--text)">Error:</b> '+err.message+'<br><br>'
-      +'<b style="color:var(--text)">Most likely cause:</b><br>'
-      +'When deploying Apps Script, you chose <b>Execute as: Me</b> but didn\'t set <b>Who has access: Anyone</b>.<br><br>'
-      +'<b style="color:var(--text)">Fix:</b> In Apps Script → Deploy → Manage deployments → Edit → change Who has access to <b>Anyone</b> → Save<br><br>'
-      +'Also make sure you clicked <b>Authorize</b> when prompted.'
       +'</div>'
       +'<div style="display:flex;gap:8px;justify-content:center">'
       +'<button class="btn btn-ol" onclick="doSync()">⟳ RETRY</button>'
-      +'<button class="btn btn-ghost" onclick="backToSetup()">CHANGE URL</button>'
       +'</div></div>';
   }
   btn.textContent='⟳ Sync'; btn.classList.remove('active');
@@ -665,7 +513,7 @@ function renderHome(){
     showH='<div class="showcase"><div class="sc-hdr"><div class="sc-hdr-t">📊 LIVE SCORES</div>'
       +'<span style="font-size:11px;color:var(--dim)">'+am.name+'</span></div>'
       +'<div class="sc-scroll">'+scored.slice(0,14).map(function(p){
-        return '<div class="sc-pl"><div class="sc-av">'+p.emoji+'<div class="sc-tag">'+getPts(p)+'</div></div>'
+        return '<div class="sc-pl"><div class="sc-av">'+renderAvatar(p)+'<div class="sc-tag">'+getPts(p)+'</div></div>'
           +'<div class="sc-nm">'+p.name.split(' ')[0]+'</div><div class="sc-role">'+p.role+'</div></div>';
       }).join('')+'</div></div>';
   }
@@ -688,9 +536,10 @@ function renderHome(){
     +'<div class="sec"><div class="sec-t">🔥 Top Fantasy Picks</div></div>'
     +'<div class="plist">'+top.map(function(p){
       var tn=p.teamName||stIcon(p.stid)+' '+stName(p.stid);
+      // Swapped TN to be the primary name and P.name to be secondary
       return '<div class="pc" onclick="showPage(\'squad\')" style="margin-bottom:7px">'
-        +'<div class="pav">'+p.emoji+'</div><div class="pinfo"><div class="pname">'+p.name+'</div>'
-        +'<div class="pmeta"><span class="rt '+rc(p.role)+'">'+p.role+'</span><span class="pteam">'+tn+'</span></div></div>'
+        +'<div class="pav">'+renderAvatar(p)+'</div><div class="pinfo"><div class="pname">'+tn+'</div>'
+        +'<div class="pmeta"><span class="rt '+rc(p.role)+'">'+p.role+'</span><span class="pteam">'+p.name+'</span></div></div>'
         +'<div class="pr"><div class="ppts">'+(getPts(p)||'–')+'</div><div class="pptsl">PTS</div><div class="pcr">'+p.cr+' cr</div></div></div>';
     }).join('')+'</div>';
 }
@@ -713,10 +562,11 @@ function renderSq(){
       var isC=DB.myCap===p.id,isV=DB.myVC===p.id;
       var pin=isC?'<span class="cpin cpinC">C</span>':isV?'<span class="cpin cpinVC">VC</span>':'';
       var tn=p.teamName||stIcon(p.stid)+' '+stName(p.stid);
+      // Swapped TN to be the primary name and P.name to be secondary
       html+='<div class="pc'+(sel?' sel':'')+'" onclick="toggleSq('+p.id+')">'
-        +'<div class="pav">'+p.emoji+pin+'</div>'
-        +'<div class="pinfo"><div class="pname">'+p.name+'</div>'
-        +'<div class="pmeta"><span class="rt '+rc(p.role)+'">'+p.role+'</span><span class="pteam">'+tn+'</span></div></div>'
+        +'<div class="pav">'+renderAvatar(p)+pin+'</div>'
+        +'<div class="pinfo"><div class="pname">'+tn+'</div>'
+        +'<div class="pmeta"><span class="rt '+rc(p.role)+'">'+p.role+'</span><span class="pteam">'+p.name+'</span></div></div>'
         +'<div class="pr"><div class="ppts">'+(getPts(p)||'–')+'</div><div class="pptsl">PTS</div><div class="pcr">'+p.cr+' cr</div></div>'
         +'<div class="pchk">'+(sel?'✓':'')+'</div></div>';
     });
@@ -755,7 +605,7 @@ function openCapM(){
   document.getElementById('cap-opts').innerHTML=sl.map(function(id){
     var p=DB.players.find(function(x){return x.id===id;})||{emoji:'🏏',name:''};
     return '<div class="mopt'+(DB.myCap===id?' sel':'')+'" onclick="setCap('+id+')">'
-      +p.emoji+' '+p.name+'<span class="mopt-r">'+getPts(p)+' pts • 2×</span></div>';
+      +'<span style="width:24px;height:24px;display:inline-block">'+renderAvatar(p)+'</span> '+p.name+'<span class="mopt-r">'+getPts(p)+' pts • 2×</span></div>';
   }).join('');
   openM('mod-cap');
 }
@@ -765,7 +615,7 @@ function openVCM(){
   document.getElementById('vc-opts').innerHTML=sl.map(function(id){
     var p=DB.players.find(function(x){return x.id===id;})||{emoji:'🏏',name:''};
     return '<div class="mopt'+(DB.myVC===id?' sel':'')+'" onclick="setVC('+id+')">'
-      +p.emoji+' '+p.name+'<span class="mopt-r">'+getPts(p)+' pts • 1.5×</span></div>';
+      +'<span style="width:24px;height:24px;display:inline-block">'+renderAvatar(p)+'</span> '+p.name+'<span class="mopt-r">'+getPts(p)+' pts • 1.5×</span></div>';
   }).join('');
   openM('mod-vc');
 }
@@ -793,7 +643,7 @@ function renderMyTeam(){
       var iC=p.id===DB.myCap,iV=p.id===DB.myVC;
       var pin=iC?'<span class="cpin cpinC">C</span>':iV?'<span class="cpin cpinVC">VC</span>':'';
       var v=getPts(p);if(iC)v*=2;else if(iV)v*=1.5;
-      return '<div class="pp"><div class="pp-av">'+p.emoji+pin+'</div>'
+      return '<div class="pp"><div class="pp-av">'+renderAvatar(p)+pin+'</div>'
         +'<div class="pp-nm">'+p.name.split(' ')[0]+'</div>'
         +'<div class="pp-pts">'+(getPts(p)?Math.round(v)+'pts':'')+'</div></div>';
     }).join('')+'</div>';
@@ -917,8 +767,8 @@ function tplScores(){
     var tn=p.teamName||stIcon(p.stid)+' '+stName(p.stid);
     var pts=calcPts(s);
     return '<div class="sc-ec"><div class="sc-eh">'
-      +'<span style="font-size:20px">'+p.emoji+'</span>'
-      +'<div style="flex:1;min-width:0"><div class="sc-enm">'+p.name+'</div>'
+      +'<span style="font-size:20px;width:30px;height:30px;display:inline-block;">'+renderAvatar(p)+'</span>'
+      +'<div style="flex:1;min-width:0;margin-left:5px;"><div class="sc-enm">'+p.name+'</div>'
       +'<div style="display:flex;gap:5px;margin-top:2px"><span class="rt '+rc(p.role)+'" style="font-size:9px">'+p.role+'</span>'
       +'<span style="font-size:10px;color:var(--dim)">'+tn+'</span></div></div>'
       +'<div class="sc-live" id="plv-'+p.id+'">'+pts+' pts</div></div>'
@@ -970,7 +820,7 @@ function tplPlayers(){
     var pls=DB.players.filter(function(p){return p.stid===st.id;});if(!pls.length)return;
     byTeam+='<tr><td colspan="4" style="background:rgba(61,163,255,.05);padding:5px 9px;font-family:var(--font-hd);font-size:10px;color:var(--blue);letter-spacing:1px">'+st.icon+' '+st.name+' ('+pls.length+')</td></tr>';
     pls.forEach(function(p){
-      byTeam+='<tr><td>'+p.emoji+' '+p.name+'</td><td><span class="rt '+rc(p.role)+'" style="font-size:9px">'+p.role+'</span></td>'
+      byTeam+='<tr><td><span style="width:20px;height:20px;display:inline-block;vertical-align:middle">'+renderAvatar(p)+'</span> '+p.name+'</td><td><span class="rt '+rc(p.role)+'" style="font-size:9px">'+p.role+'</span></td>'
         +'<td style="color:var(--gold)">'+p.cr+'cr</td><td><button class="td-del" onclick="delPlayer('+p.id+')">🗑️</button></td></tr>';
     });
   });
@@ -978,7 +828,7 @@ function tplPlayers(){
   if(ext.length){
     byTeam+='<tr><td colspan="4" style="background:rgba(0,232,162,.05);padding:5px 9px;font-family:var(--font-hd);font-size:10px;color:var(--g)">📡 From Google Sheet ('+ext.length+')</td></tr>';
     ext.slice(0,8).forEach(function(p){
-      byTeam+='<tr><td>'+p.emoji+' '+p.name+'</td><td><span class="rt '+rc(p.role)+'" style="font-size:9px">'+p.role+'</span></td>'
+      byTeam+='<tr><td><span style="width:20px;height:20px;display:inline-block;vertical-align:middle">'+renderAvatar(p)+'</span> '+p.name+'</td><td><span class="rt '+rc(p.role)+'" style="font-size:9px">'+p.role+'</span></td>'
         +'<td style="color:var(--gold)">'+p.cr+'cr</td><td style="color:var(--dim)">sheet</td></tr>';
     });
     if(ext.length>8)byTeam+='<tr><td colspan="4" style="color:var(--dim);font-size:11px;padding:6px 9px">…and '+(ext.length-8)+' more</td></tr>';
@@ -989,7 +839,7 @@ function tplPlayers(){
     +'<div class="fw"><label>Society Team</label><select class="finp" id="np-t"><option value="">Select</option>'+tOpts+'</select></div></div>'
     +'<div class="fg"><div class="fw"><label>Role</label><select class="finp" id="np-r">'+rOpts+'</select></div>'
     +'<div class="fw"><label>Credits (6–10)</label><input class="finp" id="np-c" type="number" min="6" max="10" step="0.5" value="8.0"></div>'
-    +'<div class="fw" style="min-width:70px;max-width:80px"><label>Emoji</label><input class="finp" id="np-e" value="🏏" maxlength="2"></div></div>'
+    +'<div class="fw" style="min-width:70px;max-width:80px"><label>Emoji/Logo URL</label><input class="finp" id="np-e" value="🏏" placeholder="GDrive link"></div></div>'
     +'<button class="btn btn-g btn-full" onclick="addPlayer()">ADD PLAYER</button></div></div>'
     +'<div class="acard"><div class="acard-hdr"><div><div class="acard-t">👥 All Players ('+DB.players.length+')</div></div></div>'
     +'<div style="overflow-x:auto;padding-bottom:10px"><table class="dtbl"><thead><tr><th>Name</th><th>Role</th><th>Cr</th><th></th></tr></thead><tbody>'+byTeam+'</tbody></table></div></div>';
@@ -998,8 +848,13 @@ function addPlayer(){
   var n=document.getElementById('np-n').value.trim(),t=document.getElementById('np-t').value,
       r=document.getElementById('np-r').value,c=parseFloat(document.getElementById('np-c').value)||8,
       e=document.getElementById('np-e').value||'🏏';
+  
+  var isUrl = e.includes('http');
+  var emoji = isUrl ? '🏏' : e;
+  var logo = isUrl ? e : '';
+
   if(!n||!t){showToast('Name and team are required','warn');return;}
-  DB.players.push({id:pid_ctr++,name:n,stid:t,role:r,emoji:e,cr:c,extPts:0});
+  DB.players.push({id:pid_ctr++,name:n,stid:t,role:r,emoji:emoji,cr:c,extPts:0,logo:logo});
   document.getElementById('np-n').value='';
   showToast('✅ Player added ('+DB.players.length+' total)','ok');
   renderATab();
@@ -1044,8 +899,7 @@ function showToast(msg,type){var t=document.getElementById('toast');t.textConten
 
 // INIT
 (function(){
-  var gas=localStorage.getItem('scf_gas');
-  if(gas){GAS_URL=gas;document.getElementById('gas-url').value=gas;launchApp();doSync();}
+  doSync(); 
 })();
 </script>
 </body>
