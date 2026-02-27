@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <meta name="theme-color" content="#040C14">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<title>Society Cricket Fantasy</title>
+<title>LakeVista Cricket League</title>
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -247,10 +247,10 @@ select.finp option{background:var(--card)}
   <div class="hdr">
     <div>
       <div style="display:flex;align-items:center;gap:7px">
-        <span class="brand-logo">🏏 SCF</span>
+        <span class="brand-logo">🏏 LCL</span>
         <div style="width:7px;height:7px;border-radius:50%;background:var(--g);animation:BLK 2s infinite;box-shadow:0 0 8px var(--g)"></div>
       </div>
-      <div class="brand-sub">Society Cricket Fantasy</div>
+      <div class="brand-sub">LakeVista Cricket League</div>
     </div>
     <div class="hdr-r">
       <button class="chip" id="sync-btn" onclick="doSync()">⟳ Sync</button>
@@ -286,7 +286,7 @@ select.finp option{background:var(--card)}
     </div>
     <div class="page" id="pg-myteam"><div id="myteam-c"></div></div>
     <div class="page" id="pg-lb">
-      <div class="lb-hero"><div class="lb-bg">🏆</div><div class="lb-t">LEADERBOARD</div><div class="lb-s" id="lb-sub">SOCIETY CRICKET FANTASY</div></div>
+      <div class="lb-hero"><div class="lb-bg">🏆</div><div class="lb-t">LEADERBOARD</div><div class="lb-s" id="lb-sub">LAKEVISTA CRICKET LEAGUE</div></div>
       <div class="podium" id="lb-pod"></div>
       <div class="lb-list" id="lb-list"></div>
     </div>
@@ -536,10 +536,10 @@ function renderHome(){
     +'<div class="sec"><div class="sec-t">🔥 Top Fantasy Picks</div></div>'
     +'<div class="plist">'+top.map(function(p){
       var tn=p.teamName||stIcon(p.stid)+' '+stName(p.stid);
-      // Swapped TN to be the primary name and P.name to be secondary
+      // Player Name as primary, Team as subtitle
       return '<div class="pc" onclick="showPage(\'squad\')" style="margin-bottom:7px">'
-        +'<div class="pav">'+renderAvatar(p)+'</div><div class="pinfo"><div class="pname">'+tn+'</div>'
-        +'<div class="pmeta"><span class="rt '+rc(p.role)+'">'+p.role+'</span><span class="pteam">'+p.name+'</span></div></div>'
+        +'<div class="pav">'+renderAvatar(p)+'</div><div class="pinfo"><div class="pname">'+p.name+'</div>'
+        +'<div class="pmeta"><span class="rt '+rc(p.role)+'">'+p.role+'</span><span class="pteam">'+tn+'</span></div></div>'
         +'<div class="pr"><div class="ppts">'+(getPts(p)||'–')+'</div><div class="pptsl">PTS</div><div class="pcr">'+p.cr+' cr</div></div></div>';
     }).join('')+'</div>';
 }
@@ -562,11 +562,11 @@ function renderSq(){
       var isC=DB.myCap===p.id,isV=DB.myVC===p.id;
       var pin=isC?'<span class="cpin cpinC">C</span>':isV?'<span class="cpin cpinVC">VC</span>':'';
       var tn=p.teamName||stIcon(p.stid)+' '+stName(p.stid);
-      // Swapped TN to be the primary name and P.name to be secondary
+      // Player Name as primary, Team as subtitle
       html+='<div class="pc'+(sel?' sel':'')+'" onclick="toggleSq('+p.id+')">'
         +'<div class="pav">'+renderAvatar(p)+pin+'</div>'
-        +'<div class="pinfo"><div class="pname">'+tn+'</div>'
-        +'<div class="pmeta"><span class="rt '+rc(p.role)+'">'+p.role+'</span><span class="pteam">'+p.name+'</span></div></div>'
+        +'<div class="pinfo"><div class="pname">'+p.name+'</div>'
+        +'<div class="pmeta"><span class="rt '+rc(p.role)+'">'+p.role+'</span><span class="pteam">'+tn+'</span></div></div>'
         +'<div class="pr"><div class="ppts">'+(getPts(p)||'–')+'</div><div class="pptsl">PTS</div><div class="pcr">'+p.cr+' cr</div></div>'
         +'<div class="pchk">'+(sel?'✓':'')+'</div></div>';
     });
@@ -660,7 +660,7 @@ function renderMyTeam(){
 // LEADERBOARD
 // ══════════════════════════════════════════════
 function renderLB(){
-  document.getElementById('lb-sub').textContent=(activM()||{name:'SCF'}).name.toUpperCase();
+  document.getElementById('lb-sub').textContent=(activM()||{name:'LCL'}).name.toUpperCase();
   var sorted=DB.players.slice().sort(function(a,b){return getPts(b)-getPts(a);});
   var users=DB.lbUsers.map(function(u,i){
     var picks=sorted.slice(i*2,i*2+10);
@@ -836,7 +836,7 @@ function tplPlayers(){
   return '<div class="acard"><div class="acard-hdr"><div><div class="acard-t">➕ Add Player</div><div class="acard-s">Total: '+DB.players.length+' players</div></div></div>'
     +'<div class="acard-body"><div class="fg">'
     +'<div class="fw"><label>Full Name</label><input class="finp" id="np-n" placeholder="Player name"></div>'
-    +'<div class="fw"><label>Society Team</label><select class="finp" id="np-t"><option value="">Select</option>'+tOpts+'</select></div></div>'
+    +'<div class="fw"><label>Team</label><select class="finp" id="np-t"><option value="">Select</option>'+tOpts+'</select></div></div>'
     +'<div class="fg"><div class="fw"><label>Role</label><select class="finp" id="np-r">'+rOpts+'</select></div>'
     +'<div class="fw"><label>Credits (6–10)</label><input class="finp" id="np-c" type="number" min="6" max="10" step="0.5" value="8.0"></div>'
     +'<div class="fw" style="min-width:70px;max-width:80px"><label>Emoji/Logo URL</label><input class="finp" id="np-e" value="🏏" placeholder="GDrive link"></div></div>'
@@ -871,7 +871,7 @@ function tplTeams(){
       +'<div style="width:'+Math.min(Math.round(cnt/9*100),100)+'%;height:100%;background:var(--gg);border-radius:2px"></div>'
       +'</div></div></div>';
   }).join('');
-  return '<div class="acard"><div class="acard-hdr"><div><div class="acard-t">➕ Add Society Team</div><div class="acard-s">Target: 22 teams (current: '+DB.socTeams.length+')</div></div></div>'
+  return '<div class="acard"><div class="acard-hdr"><div><div class="acard-t">➕ Add Team</div><div class="acard-s">Target: 22 teams (current: '+DB.socTeams.length+')</div></div></div>'
     +'<div class="acard-body"><div class="fg">'
     +'<div class="fw"><label>Team Name</label><input class="finp" id="nt-n" placeholder="Block A Warriors"></div>'
     +'<div class="fw" style="min-width:80px;max-width:90px"><label>Emoji</label><input class="finp" id="nt-i" value="🏏" maxlength="2"></div></div>'
