@@ -7,6 +7,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <title>LakeVista Cricket League</title>
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://accounts.google.com/gsi/client" async defer></script>
 <style>
 :root{
   --bg:#040C14;--s1:#07111E;--s2:#0B1929;--card:#0E1F30;--card2:#122539;
@@ -24,8 +25,15 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--f
 @keyframes BLK{0%,100%{opacity:1}50%{opacity:0}}
 @keyframes SP{to{transform:rotate(360deg)}}
 
+/* LOGIN SCREEN */
+#login-screen{position:fixed;inset:0;background:var(--bg);z-index:99999;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;text-align:center;}
+.login-logo{font-size:70px;margin-bottom:10px;animation:SU .5s ease}
+.login-title{font-family:var(--font-hd);font-size:32px;letter-spacing:4px;color:var(--g);margin-bottom:5px;animation:SU .6s ease}
+.login-sub{font-size:12px;color:var(--dim);letter-spacing:2px;text-transform:uppercase;margin-bottom:40px;animation:SU .7s ease}
+.g-btn-wrap{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:30px;box-shadow:var(--glow);animation:SU .8s ease}
+
 /* SHELL */
-#app{height:100dvh;display:flex;flex-direction:column;animation:FI .3s ease}
+#app{height:100dvh;display:none;flex-direction:column;animation:FI .3s ease} /* Hidden by default */
 .pages{flex:1;overflow:hidden;position:relative}
 .page{position:absolute;inset:0;overflow-y:auto;overscroll-behavior:contain;padding-bottom:74px;display:none;-webkit-overflow-scrolling:touch}
 .page.active{display:block}
@@ -36,9 +44,10 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--f
 .brand-logo{font-family:var(--font-hd);font-size:20px;letter-spacing:3px;color:var(--g)}
 .brand-sub{font-size:9px;color:var(--dim);letter-spacing:2px;text-transform:uppercase;margin-top:1px}
 .hdr-r{display:flex;gap:7px;align-items:center}
-.chip{border:1px solid var(--border);border-radius:20px;padding:5px 11px;font-size:12px;font-family:var(--font-bd);font-weight:600;cursor:pointer;background:transparent;color:var(--dim);transition:all .2s}
+.chip{border:1px solid var(--border);border-radius:20px;padding:5px 11px;font-size:12px;font-family:var(--font-bd);font-weight:600;cursor:pointer;background:transparent;color:var(--dim);transition:all .2s;display:flex;align-items:center;gap:6px}
 .chip:hover{border-color:var(--blue);color:var(--blue)}
 .chip.active{border-color:var(--g);color:var(--g)}
+.user-avatar{width:20px;height:20px;border-radius:50%;object-fit:cover;background:var(--s2)}
 
 /* SYNC BAR */
 .sbar{background:var(--s2);border-bottom:1px solid var(--border);padding:4px 14px;font-size:11px;color:var(--dim);display:flex;align-items:center;gap:7px;flex-shrink:0;min-height:24px}
@@ -243,6 +252,17 @@ select.finp option{background:var(--card)}
 </head>
 <body>
 
+<div id="login-screen">
+  <div class="login-logo">🏏</div>
+  <div class="login-title">LCL</div>
+  <div class="login-sub">LakeVista Cricket League</div>
+  
+  <div class="g-btn-wrap">
+    <div style="font-family:var(--font-bd);font-size:14px;margin-bottom:20px;color:var(--text)">Sign in to create your team</div>
+    <div id="google-btn"></div>
+  </div>
+</div>
+
 <div id="app">
   <div class="hdr">
     <div>
@@ -253,6 +273,7 @@ select.finp option{background:var(--card)}
       <div class="brand-sub">LakeVista Cricket League</div>
     </div>
     <div class="hdr-r">
+      <div class="chip" id="user-profile-chip" style="cursor:default"></div>
       <button class="chip" id="sync-btn" onclick="doSync()">⟳ Sync</button>
     </div>
   </div>
@@ -332,6 +353,60 @@ select.finp option{background:var(--card)}
 <div class="toast" id="toast"></div>
 
 <script>
+// ══════════════════════════════════════════════
+// GOOGLE AUTHENTICATION & SESSION
+// ══════════════════════════════════════════════
+var currentUser = null;
+
+function decodeJwtResponse(token) {
+  var base64Url = token.split('.')[1];
+  var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+  var jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+      return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+  }).join(''));
+  return JSON.parse(jsonPayload);
+}
+
+function handleCredentialResponse(response) {
+  var data = decodeJwtResponse(response.credential);
+  currentUser = { name: data.name, email: data.email, picture: data.picture };
+  
+  // Set UI chip
+  var chip = document.getElementById('user-profile-chip');
+  chip.innerHTML = '<img class="user-avatar" src="' + currentUser.picture + '"> <span style="font-size:10px;font-family:var(--font-hd);max-width:70px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">' + currentUser.name.split(' ')[0] + '</span>';
+  
+  // Load saved team from LocalStorage
+  var savedTeam = localStorage.getItem('lcl_team_' + currentUser.email);
+  if (savedTeam) {
+    try {
+      var parsed = JSON.parse(savedTeam);
+      DB.mySquad = parsed.squad || [];
+      DB.myCap = parsed.cap || null;
+      DB.myVC = parsed.vc || null;
+    } catch(e) { console.error("Could not parse saved team", e); }
+  } else {
+    DB.mySquad = []; DB.myCap = null; DB.myVC = null;
+  }
+
+  // Hide login screen, show app, start sync
+  document.getElementById('login-screen').style.display = 'none';
+  document.getElementById('app').style.display = 'flex';
+  doSync();
+}
+
+window.onload = function () {
+  google.accounts.id.initialize({
+    // IMPORTANT: REPLACE THIS STRING WITH YOUR GOOGLE CLIENT ID
+    client_id: "YOUR_GOOGLE_CLIENT_ID_HERE.apps.googleusercontent.com",
+    callback: handleCredentialResponse
+  });
+  google.accounts.id.renderButton(
+    document.getElementById("google-btn"),
+    { theme: "outline", size: "large", type: "standard" }
+  );
+};
+
+
 // ══════════════════════════════════════════════
 // AVATAR & GOOGLE DRIVE LOGOS HELPER
 // ══════════════════════════════════════════════
@@ -536,7 +611,7 @@ function renderHome(){
     +'<div class="sec"><div class="sec-t">🔥 Top Fantasy Picks</div></div>'
     +'<div class="plist">'+top.map(function(p){
       var tn=p.teamName||stIcon(p.stid)+' '+stName(p.stid);
-      // Player Name as primary, Team as subtitle
+      // Swapped: Player Name as primary, Team as subtitle
       return '<div class="pc" onclick="showPage(\'squad\')" style="margin-bottom:7px">'
         +'<div class="pav">'+renderAvatar(p)+'</div><div class="pinfo"><div class="pname">'+p.name+'</div>'
         +'<div class="pmeta"><span class="rt '+rc(p.role)+'">'+p.role+'</span><span class="pteam">'+tn+'</span></div></div>'
@@ -562,7 +637,7 @@ function renderSq(){
       var isC=DB.myCap===p.id,isV=DB.myVC===p.id;
       var pin=isC?'<span class="cpin cpinC">C</span>':isV?'<span class="cpin cpinVC">VC</span>':'';
       var tn=p.teamName||stIcon(p.stid)+' '+stName(p.stid);
-      // Player Name as primary, Team as subtitle
+      // Swapped: Player Name as primary, Team as subtitle
       html+='<div class="pc'+(sel?' sel':'')+'" onclick="toggleSq('+p.id+')">'
         +'<div class="pav">'+renderAvatar(p)+pin+'</div>'
         +'<div class="pinfo"><div class="pname">'+p.name+'</div>'
@@ -598,7 +673,7 @@ function updateSqUI(){
 }
 
 // ══════════════════════════════════════════════
-// CAP / VC
+// CAP / VC & SAVE LOGIC
 // ══════════════════════════════════════════════
 function openCapM(){
   var sl=DB.mySquad.slice().sort(function(a,b){return getPts(DB.players.find(function(x){return x.id===b;})||{})-getPts(DB.players.find(function(x){return x.id===a;})||{});});
@@ -619,7 +694,23 @@ function openVCM(){
   }).join('');
   openM('mod-vc');
 }
-function setVC(id){DB.myVC=id;closeM('mod-vc');renderSq();showToast('🎉 Team saved!','ok');setTimeout(function(){showPage('myteam');},500);}
+function setVC(id){
+  DB.myVC=id;
+  closeM('mod-vc');
+  renderSq();
+  
+  // Save to Local Storage assigned to Google Email
+  if (currentUser) {
+    localStorage.setItem('lcl_team_' + currentUser.email, JSON.stringify({
+      squad: DB.mySquad,
+      cap: DB.myCap,
+      vc: DB.myVC
+    }));
+  }
+  
+  showToast('🎉 Team saved!','ok');
+  setTimeout(function(){showPage('myteam');},500);
+}
 
 // ══════════════════════════════════════════════
 // MY TEAM
@@ -662,19 +753,54 @@ function renderMyTeam(){
 function renderLB(){
   document.getElementById('lb-sub').textContent=(activM()||{name:'LCL'}).name.toUpperCase();
   var sorted=DB.players.slice().sort(function(a,b){return getPts(b)-getPts(a);});
+  
+  // existing hardcoded users
   var users=DB.lbUsers.map(function(u,i){
     var picks=sorted.slice(i*2,i*2+10);
     return Object.assign({},u,{score:u.base+Math.round(picks.reduce(function(s,p){return s+getPts(p);},0)*.4)});
-  }).sort(function(a,b){return b.score-a.score;});
+  });
+  
+  // Calculate current user's actual score
+  var myScore = 0;
+  if(DB.mySquad.length === 10) {
+    myScore = DB.mySquad.reduce(function(s, id){
+      var p = DB.players.find(function(x){return x.id===id;});
+      if(!p) return s;
+      var v = getPts(p);
+      if(id === DB.myCap) v *= 2;
+      else if(id === DB.myVC) v *= 1.5;
+      return s + v;
+    }, 0);
+  }
+  
+  // Inject Current User
+  if (currentUser) {
+    users.push({
+      name: currentUser.name.split(' ')[0] + ' (You)',
+      emoji: '<img src="' + currentUser.picture + '" style="width:100%;height:100%;object-fit:cover;border-radius:50%">',
+      teamName: 'My Team',
+      score: Math.round(myScore),
+      isMe: true
+    });
+  }
+
+  // Sort all users by score descending
+  users.sort(function(a,b){return b.score-a.score;});
+  
   var t3=users.slice(0,3);
   var po=[{d:t3[1],r:2,ps:'ps2',cl:'pod2'},{d:t3[0],r:1,ps:'ps1',cl:'pod1'},{d:t3[2],r:3,ps:'ps3',cl:'pod3'}];
+  
   document.getElementById('lb-pod').innerHTML=po.filter(function(o){return o.d;}).map(function(o){
-    return '<div class="pod '+o.cl+'"><div class="pod-av">'+o.d.emoji+'</div><div class="pod-nm">'+o.d.name.split(' ')[0]+'</div>'
+    var highlightColor = o.d.isMe ? 'color:var(--g);' : '';
+    return '<div class="pod '+o.cl+'"><div class="pod-av">'+o.d.emoji+'</div><div class="pod-nm" style="'+highlightColor+'">'+o.d.name.split(' ')[0]+'</div>'
       +'<div class="pod-sc">'+o.d.score+'</div><div class="pod-stand '+o.ps+'"></div><div class="pod-rk">#'+o.r+'</div></div>';
   }).join('');
+  
   document.getElementById('lb-list').innerHTML=users.slice(3).map(function(u,i){
-    return '<div class="lb-row" style="animation-delay:'+(i*.04)+'s"><div class="lb-rk">'+(i+4)+'</div>'
-      +'<div class="lb-av">'+u.emoji+'</div><div class="lb-info"><div class="lb-nm">'+u.name+'</div>'
+    var highlightBox = u.isMe ? 'border-color:var(--g);background:rgba(0,232,162,.06)' : '';
+    var highlightText = u.isMe ? 'color:var(--g)' : '';
+    return '<div class="lb-row" style="animation-delay:'+(i*.04)+'s;' + highlightBox + '"><div class="lb-rk">'+(i+4)+'</div>'
+      +'<div class="lb-av">'+u.emoji+'</div><div class="lb-info"><div class="lb-nm" style="'+highlightText+'">'+u.name+'</div>'
       +'<div class="lb-tnm">'+u.teamName+'</div></div><div class="lb-sc">'+u.score+'</div></div>';
   }).join('');
 }
@@ -897,10 +1023,6 @@ document.querySelectorAll('.backdrop').forEach(function(b){b.addEventListener('c
 var _tt;
 function showToast(msg,type){var t=document.getElementById('toast');t.textContent=msg;t.className='toast '+(type||'')+' show';clearTimeout(_tt);_tt=setTimeout(function(){t.classList.remove('show');},2800);}
 
-// INIT
-(function(){
-  doSync(); 
-})();
 </script>
 </body>
 </html>
